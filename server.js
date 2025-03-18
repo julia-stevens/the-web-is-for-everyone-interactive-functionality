@@ -109,6 +109,47 @@ app.get("/bookmarks", async function (request, response) {
     bookmarks: bookmarksResponseJSON.data
   })
 })
+
+app.post("/webinars", async function (request, response) {
+  await fetch(`${apiEndpoint}${apiMessagesEndpoint}`, {
+    method: "POST",
+    body: JSON.stringify({
+      text: request.body.textField, 
+      for: request.body.forField,
+    }),
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8"
+    }
+  })
+  response.redirect(303, "/webinars")
+})
+
+app.post("/webinars/:slug", async function (request, response) {
+  await fetch(`${apiEndpoint}${apiMessagesEndpoint}`, {
+    method: "POST",
+    body: JSON.stringify({
+      text: request.body.textField, 
+      for: request.body.forField,
+    }),
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8"
+    }
+  })
+  response.redirect(303, "/webinars/:slug")
+})
+
+app.post("/bookmarks", async function (request, response) {
+  await fetch(`${apiEndpoint}${apiMessagesEndpoint}`, {
+    method: "POST",
+    body: JSON.stringify({
+      text: request.body.textField, 
+      for: request.body.forField,
+    }),
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8"
+    }
+  })
+  response.redirect(303, "/bookmarks")
 })
 
 /* 
