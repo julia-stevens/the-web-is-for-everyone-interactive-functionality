@@ -1,0 +1,13 @@
+{% assign pageTitle = "Bookmarks | Oncollaboration" %}
+{% include "partials/head.liquid" %}
+
+    <h1>Bookmarks</h1>
+
+    <ul>
+        {% for bookmark in bookmarks %}
+            <li>
+                {{ bookmark.id }}
+            </li>
+        {% endfor %}
+    </ul>
+{% render "partials/foot.liquid" %}
