@@ -4,7 +4,7 @@ import { Liquid } from 'liquidjs';
 
 const app = express()
 
-app.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({ extended: true }))
 
 
 app.use(express.static('public'))
@@ -21,6 +21,7 @@ const apiContouringEndpoint = "/avl_contourings"
 const apiCategoriesEndpoint = "/avl_categories"
 const apiMessagesEndpoint = "/avl_messages"
 const webinarFields = "?fields=*,speakers.*.*,resources.*.*,categories.*.*"
+const messagesFilter = "?filter[for][_eq]=Bookmark for Julia"
 
 app.get("/", async function (request, response) {
   const webinarResponse = await fetch(`${apiEndpoint}${apiWebinarEndpoint}${webinarFields}`);
@@ -46,66 +47,90 @@ app.get("/", async function (request, response) {
 })
 
 app.get("/webinars", async function (request, response) {
-  let sortWebinars = "";
-  const filterCategory = "&filter[categories][avl_categories_id][name][_eq]=";
-  let filteredCategory = "";
+  let sortWebinars = ""
+  const filterCategory = "&filter[categories][avl_categories_id][name][_eq]="
+  let filteredCategory = ""
 
   switch (request.query.sort) {
     case "newest":
-      sortWebinars = "&sort=-date";
-      break;
+      sortWebinars = "&sort=-date"
+      break
     case "oldest":
-      sortWebinars = "&sort=date";
-      break;
+      sortWebinars = "&sort=date"
+      break
     case "alphabetical":
-      sortWebinars = "&sort=title";
-      break;
+      sortWebinars = "&sort=title"
+      break
     case "views":
-      sortWebinars = "&sort=views";
-      break;
-    default: 
-      sortWebinars = "";
-  }  
-
-  if (request.query.category) { // als er een category in de URL staat
-    filteredCategory = `${filterCategory}${encodeURIComponent(request.query.category)}`; // voeg category toe aan string filteredCategory 
+      sortWebinars = "&sort=views"
+      break
+    default:
+      sortWebinars = ""
   }
-  
-  const webinarResponse = await fetch(`${apiEndpoint}${apiWebinarEndpoint}${webinarFields}${sortWebinars}${filteredCategory}`);
-  const webinarResponseJSON = await webinarResponse.json();
+
+  if (request.query.category) {
+    filteredCategory = `${filterCategory}${encodeURIComponent(request.query.category)}`
+  }
+
+  const webinarResponse = await fetch(`${apiEndpoint}${apiWebinarEndpoint}${webinarFields}${sortWebinars}${filteredCategory}`)
+  const webinarResponseJSON = await webinarResponse.json()
 
   const categoriesResponse = await fetch(`${apiEndpoint}${apiCategoriesEndpoint}`)
   const categoriesResponseJSON = await categoriesResponse.json()
 
-  response.render("webinars.liquid", { 
-    webinars: webinarResponseJSON.data,
-    categories: categoriesResponseJSON.data, 
+  const bookmarksResponse = await fetch(`${apiEndpoint}${apiMessagesEndpoint}${messagesFilter}`)
+  const bookmarksResponseJSON = await bookmarksResponse.json()
+
+  const bookmarkedWebinarIds = bookmarksResponseJSON.data.map(bookmark => String(bookmark.text));
+
+  const webinarsWithStringIds = webinarResponseJSON.data.map(webinar => ({
+    ...webinar,
+    id: String(webinar.id)
+  }))
+
+  response.render("webinars.liquid", {
+    webinars: webinarsWithStringIds,
+    categories: categoriesResponseJSON.data,
     currentSort: request.query.sort || "newest",
-    currentCategory: request.query.category || ""
+    currentCategory: request.query.category || "",
+    bookmarkedIds: bookmarkedWebinarIds
   })
 })
 
 app.get("/webinars/:slug", async function (request, response) {
   const slug = request.params.slug
-  const filter = `&filter={"slug":"${slug}"}` 
-  
+  const filter = `&filter={"slug":"${slug}"}`
+
   const webinarResponse = await fetch(`${apiEndpoint}${apiWebinarEndpoint}${webinarFields}${filter}`)
   const webinarResponseJSON = await webinarResponse.json()
 
   const contouringResponse = await fetch(`${apiEndpoint}${apiContouringEndpoint}`)
   const contouringResponseJSON = await contouringResponse.json()
 
-  response.render("webinar.liquid", { 
-    webinars: webinarResponseJSON.data, 
+  response.render("webinar.liquid", {
+    webinars: webinarResponseJSON.data,
     contourings: contouringResponseJSON.data
   })
 })
 
 app.get("/bookmarks", async function (request, response) {
-  const bookmarksResponse = await fetch(`${apiEndpoint}${apiMessagesEndpoint}`)
+  const bookmarksResponse = await fetch(`${apiEndpoint}${apiMessagesEndpoint}${messagesFilter}`)
   const bookmarksResponseJSON = await bookmarksResponse.json()
 
+  const webinarResponse = await fetch(`${apiEndpoint}${apiWebinarEndpoint}${webinarFields}`)
+  const webinarResponseJSON = await webinarResponse.json()
+
+  const bookmarkedWebinarIds = bookmarksResponseJSON.data.map(bookmark => bookmark.text)
+
+  const webinarsWithBookmarkStatus = bookmarkedWebinars.map(webinar => {
+    return {
+      ...webinar,
+      isBookmarked: true
+    }
+  })
+
   response.render("bookmarks.liquid", {
+    webinars: webinarsWithBookmarkStatus,
     bookmarks: bookmarksResponseJSON.data
   })
 })
@@ -114,7 +139,7 @@ app.post("/webinars", async function (request, response) {
   await fetch(`${apiEndpoint}${apiMessagesEndpoint}`, {
     method: "POST",
     body: JSON.stringify({
-      text: request.body.textField, 
+      text: request.body.textField,
       for: request.body.forField,
     }),
     headers: {
@@ -128,7 +153,7 @@ app.post("/webinars/:slug", async function (request, response) {
   await fetch(`${apiEndpoint}${apiMessagesEndpoint}`, {
     method: "POST",
     body: JSON.stringify({
-      text: request.body.textField, 
+      text: request.body.textField,
       for: request.body.forField,
     }),
     headers: {
@@ -142,7 +167,7 @@ app.post("/bookmarks", async function (request, response) {
   await fetch(`${apiEndpoint}${apiMessagesEndpoint}`, {
     method: "POST",
     body: JSON.stringify({
-      text: request.body.textField, 
+      text: request.body.textField,
       for: request.body.forField,
     }),
     headers: {
