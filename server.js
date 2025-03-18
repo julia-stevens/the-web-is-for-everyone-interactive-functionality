@@ -121,6 +121,9 @@ app.get("/bookmarks", async function (request, response) {
   const webinarResponseJSON = await webinarResponse.json()
 
   const bookmarkedWebinarIds = bookmarksResponseJSON.data.map(bookmark => bookmark.text)
+  const bookmarkedWebinars = webinarResponseJSON.data.filter(webinar =>
+    bookmarkedWebinarIds.includes(String(webinar.id))
+  )
 
   const webinarsWithBookmarkStatus = bookmarkedWebinars.map(webinar => {
     return {
