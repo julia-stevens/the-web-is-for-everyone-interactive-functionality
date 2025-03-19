@@ -1,39 +1,46 @@
 {% assign pageTitle = "Webinars | Oncollaboration" %}
 {% include "partials/head.liquid" %}
 
-    <h1>Webinars</h1>
+    <main>
+        {% for webinar in webinars %}
+            <div class="breadcrumbs-links">
+                <a href="/">Home</a>
+                <a href="/webinars">/ Webinars</a>
+            </div>
 
-    <section class="all-webinars">
-        <h2>Overview webinars</h2>
-        <div class="webinars-overview">
-            {% for webinar in webinars %}
-                <article class="webinar-article">
-                    <a href="/webinars/{{ webinar.slug }}">
-                        <h3 class="sr-only">{{ webinar.title }}</h3>
-                        <div class="webinar-thumbnail">
-                            <img src="https://fdnd-agency.directus.app/assets/{{ webinar.thumbnail }}" alt="" width="100">
-                            <p>{{ webinar.duration }}</p>
-                        </div>
-                        <div class="webinar-info">
-                            <h3>{{ webinar.title | truncatewords: 6 }}</h3>
-                            {% for speaker in webinar.speakers %}
-                            <p>{{ speaker.avl_speakers_id.fullname }}</p>
-                            {% endfor %}
-                        </div>
-                        <form method="post" action="/webinars">
-                            <input type="hidden" name="textField" value="{{ webinar.id }}">
-                            <input type="hidden" name="forField" value="Bookmark for Julia">
-                            
-                            {% if bookmarkedIds contains webinar.id %}
-                                <button type="submit" disabled>Bookmarked</button> 
-                            {% else %}
-                                <button type="submit">Bookmark</button>
-                            {% endif %}
-                        </form>
-                    </a>
-                </article>
-            {% endfor %}
-        </div>          
-    </section>
+            <section class="all-webinars">
+                <h2>Overview webinars</h2>
+                <div class="webinars-overview">
+                    {% for webinar in webinars %}
+                        <article class="webinar-article">
+                            <a href="/webinars/{{ webinar.slug }}">
+                                <h3 class="sr-only">{{ webinar.title }}</h3>
+                                <div class="webinar-thumbnail">
+                                    <img src="https://fdnd-agency.directus.app/assets/{{ webinar.thumbnail }}" alt="" width="100">
+                                    <p>{{ webinar.duration }}</p>
+                                </div>
+                                <div class="webinar-info">
+                                    <h3>{{ webinar.title | truncatewords: 6 }}</h3>
+                                    {% for speaker in webinar.speakers %}
+                                    <p>{{ speaker.avl_speakers_id.fullname }}</p>
+                                    {% endfor %}
+                                </div>
+                                <form method="post" action="/webinars">
+                                    <input type="hidden" name="textField" value="{{ webinar.id }}">
+                                    <input type="hidden" name="forField" value="Bookmark for Julia">
+                                    
+                                    {% if bookmarkedIds contains webinar.id %}
+                                        <button type="submit" disabled>Bookmarked</button> 
+                                    {% else %}
+                                        <button type="submit">Bookmark</button>
+                                    {% endif %}
+                                </form>
+                            </a>
+                        </article>
+                    {% endfor %}
+                </div>          
+            </section>
+        {% endfor %}
+    </main>
 
 {% render "partials/foot.liquid" %}

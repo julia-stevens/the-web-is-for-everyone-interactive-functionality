@@ -1,6 +1,16 @@
 {% assign pageTitle = "Webinar | Oncollaboration" %}
 {% include "partials/head.liquid" %}
 
-    <h1>Webinar</h1>
+    <main>
+        {% for webinar in webinars %}
+            <h1>Webinar</h1>
+
+            <div class="breadcrumbs-links">
+                <a href="/">Home</a>
+                <a href="/webinars">/ Webinars</a>
+                <a href="/webinars/{{ webinar.slug }}">/ {{ webinar.title }}</a>
+            </div>
+        {% endfor %}
+    </main>
 
 {% render "partials/foot.liquid" %}
