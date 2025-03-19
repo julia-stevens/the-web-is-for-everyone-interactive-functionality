@@ -25,7 +25,7 @@
                             <input type="hidden" name="forField" value="Bookmark for Julia">
                             
                             {% if bookmarkedIds contains webinar.id %}
-                                <button type="submit">Bookmarked</button> 
+                                <button type="submit" disabled>Bookmarked</button> 
                             {% else %}
                                 <button type="submit">Bookmark</button>
                             {% endif %}
