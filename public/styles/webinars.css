@@ -1,0 +1,8 @@
+.all-webinars {
+    .webinars-overview {
+        display: flex; 
+        flex-direction: column;
+        align-items: start;
+        gap: 1rem;
+    }
+}
