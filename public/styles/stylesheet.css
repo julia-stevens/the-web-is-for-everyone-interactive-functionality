@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+@font-face {
+    font-family: 'VAGRundschriftD';
+    font-style: normal;
+    font-weight: normal;
+    src: local('VAGRundschriftD'), url("/assets/font/VAGRundschriftD.woff") format('woff');
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0; 
+    margin: 0; 
+}
+
+body {
+    --primary: #1F307D; 
+    --primary-light: #E6E5EB ; 
+    --secondary: #19B2A2; 
+    --secondary-light: rgba(25, 178, 162, 0.5);
+    --tertiary: #6A0025;
+    --highlight: #DBE002; 
+    --light: white; 
+    --background-color: #F7F5F5; 
+    background-color: var(--background-color);
+
+    --font-family-headings: "VAGRundschriftD";
+    --font-family-body: "Open Sans", sans-serif; 
+    --font-weight-light: 300;  
+    --font-weight-regular: 400;  
+    --font-weight-medium: 500;  
+    --font-weight-semibold: 600;  
+    --font-weight-bold: 700;  
+    --font-weight-extrabold: 800;  
+    font-family: var(--font-family-body);
+    font-weight: var(--font-weight-regular);
+    font-size: 16px;
+
+    h1, h2, h3, h4 {
+        font-family: var(--font-family-headings);
+    }
+        
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+    
+    ul {
+        list-style-type: none;
+    }
+    
+    button {
+        cursor: pointer;
+        appearance: none;
+        background-color: none;
+        border: none;
+
+        &.highlight-btn {
+            --btn-transition: .2s ease-in; 
+            transition: var(--btn-transition);
+            &:hover {
+                --background-color: rgba(247, 250, 107, 1);
+                background-color: var(--background-color);
+            }
+        }
+    }
+
+    /* A11Y */
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        border: 0;
+        clip: rect(0, 0, 0, 0);
+        overflow: hidden;
+    }
+    
+    .skip-link {
+        position: absolute; 
+        top: 5rem;
+        left: -500px;
+        z-index: 999;
+        transition: var(--text-hover-transition); 
+     
+        &:focus {
+         left: 3rem;
+        }
+    }
+
+    /* breadcrumbs */
+}
+
