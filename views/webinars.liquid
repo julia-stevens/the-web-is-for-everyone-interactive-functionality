@@ -2,45 +2,28 @@
 {% include "partials/head.liquid" %}
 
     <main>
-        {% for webinar in webinars %}
-            <div class="breadcrumbs-links">
-                <a href="/">Home</a>
-                <a href="/webinars">/ Webinars</a>
-            </div>
+        <div class="breadcrumbs-links">
+            <a href="/">Home</a>
+            <a href="/webinars">/ Webinars</a>
+        </div>
 
-            <section class="all-webinars">
-                <h2>Overview webinars</h2>
-                <div class="webinars-overview">
-                    {% for webinar in webinars %}
-                        <article class="webinar-article">
-                            <a href="/webinars/{{ webinar.slug }}">
-                                <h3 class="sr-only">{{ webinar.title }}</h3>
-                                <div class="webinar-thumbnail">
-                                    <img src="https://fdnd-agency.directus.app/assets/{{ webinar.thumbnail }}" alt="" width="100">
-                                    <p>{{ webinar.duration }}</p>
-                                </div>
-                                <div class="webinar-info">
-                                    <h3>{{ webinar.title | truncatewords: 6 }}</h3>
-                                    {% for speaker in webinar.speakers %}
-                                    <p>{{ speaker.avl_speakers_id.fullname }}</p>
-                                    {% endfor %}
-                                </div>
-                                <form method="post" action="/webinars">
-                                    <input type="hidden" name="textField" value="{{ webinar.id }}">
-                                    <input type="hidden" name="forField" value="Bookmark for Julia">
-                                    
-                                    {% if bookmarkedIds contains webinar.id %}
-                                        <button type="submit" disabled>Bookmarked</button> 
-                                    {% else %}
-                                        <button type="submit">Bookmark</button>
-                                    {% endif %}
-                                </form>
-                            </a>
-                        </article>
-                    {% endfor %}
-                </div>          
-            </section>
-        {% endfor %}
+        <div class="page-title">
+            <h1>Webinars</h1>
+            <p>Browse our selection of webinars on radiotherapy, featuring expert insights and up-to-date practices. Watch at your convenience and stay informed on the latest advancements in the field.</p>
+        </div>
+
+        <div class="sort-filter">
+            {% include "partials/sort-filter.liquid" %}
+        </div>
+        
+        <section class="all-webinars">
+            <h2>Overview webinars</h2>
+            <div class="webinars-overview">
+                {% for webinar in webinars %}
+                    {% include "partials/webinar-card.liquid" %}
+                {% endfor %}
+            </div>          
+        </section>
     </main>
 
 {% render "partials/foot.liquid" %}
