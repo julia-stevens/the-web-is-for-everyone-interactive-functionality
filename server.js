@@ -2,13 +2,15 @@ import express from 'express'
 import { Liquid } from 'liquidjs';
 
 const app = express()
-
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
 
 const engine = new Liquid();
 app.engine('liquid', engine.express());
 app.set('views', './views')
+
+import methodOverride from "method-override"
+app.use(methodOverride("_method"))
 
 // API response links
 const apiEndpoint = "https://fdnd-agency.directus.app/items"
@@ -102,9 +104,13 @@ app.get("/webinars/:slug", async function (request, response) {
   const contouringResponse = await fetch(`${apiEndpoint}${apiContouringEndpoint}`)
   const contouringResponseJSON = await contouringResponse.json()
 
+  const categoriesResponse = await fetch(`${apiEndpoint}${apiCategoriesEndpoint}`)
+  const categoriesResponseJSON = await categoriesResponse.json()
+
   response.render("webinar.liquid", {
     webinars: webinarResponseJSON.data,
-    contourings: contouringResponseJSON.data
+    contourings: contouringResponseJSON.data,
+    categories: categoriesResponseJSON.data
   })
 })
 
@@ -115,37 +121,57 @@ app.get("/bookmarks", async function (request, response) {
   const webinarResponse = await fetch(`${apiEndpoint}${apiWebinarEndpoint}${webinarFields}`)
   const webinarResponseJSON = await webinarResponse.json()
 
-  const bookmarkedWebinarIds = bookmarksResponseJSON.data.map(bookmark => bookmark.text)
-  const bookmarkedWebinars = webinarResponseJSON.data.filter(webinar =>
-    bookmarkedWebinarIds.includes(String(webinar.id))
+  const categoriesResponse = await fetch(`${apiEndpoint}${apiCategoriesEndpoint}`)
+  const categoriesResponseJSON = await categoriesResponse.json()
+
+  const bookmarkedWebinarIds = bookmarksResponseJSON.data.map(bookmark => String(bookmark.text));
+  const webinarsWithStringIds = webinarResponseJSON.data.map(webinar => ({
+    ...webinar,
+    id: String(webinar.id)
+  }))
+
+  const bookmarkedWebinars = webinarsWithStringIds.filter(webinar =>
+    bookmarkedWebinarIds.includes(webinar.id)
   )
-
-  const webinarsWithBookmarkStatus = bookmarkedWebinars.map(webinar => {
-    return {
-      ...webinar,
-      isBookmarked: true
-    }
-  })
-
+  
   response.render("bookmarks.liquid", {
-    webinars: webinarsWithBookmarkStatus,
-    bookmarks: bookmarksResponseJSON.data
+    webinars: bookmarkedWebinars, 
+    bookmarks: bookmarksResponseJSON.data,
+    categories: categoriesResponseJSON.data,
+    bookmarkedIds: bookmarkedWebinarIds
   })
 })
 
 app.post("/webinars", async function (request, response) {
-  await fetch(`${apiEndpoint}${apiMessagesEndpoint}`, {
-    method: "POST",
-    body: JSON.stringify({
-      text: request.body.textField,
-      for: request.body.forField,
-    }),
-    headers: {
-      "Content-Type": "application/json;charset=UTF-8"
+  const { textField, forField, _method } = request.body;
+
+  if (_method === "DELETE") {
+    const bookmarksResponse = await fetch(`${apiEndpoint}${apiMessagesEndpoint}${messagesFilter}`)
+    const bookmarksResponseJSON = await bookmarksResponse.json()
+
+    const bookmarkToDelete = bookmarksResponseJSON.data.find(
+      bookmark => bookmark.text === textField && bookmark.for === "Bookmark for Julia"
+    );
+
+    if (bookmarkToDelete) {
+      await fetch(`${apiEndpoint}${apiMessagesEndpoint}/${bookmarkToDelete.id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json;charset=UTF-8" }
+      });
     }
-  })
-  response.redirect(303, "/webinars")
+  } else {
+    await fetch(`${apiEndpoint}${apiMessagesEndpoint}`, {
+      method: "POST",
+      body: JSON.stringify({
+        text: textField,
+        for: forField
+      }),
+      headers: { "Content-Type": "application/json;charset=UTF-8" }
+    })
+  }
+  response.redirect(303, "/webinars");
 })
+
 
 app.post("/webinars/:slug", async function (request, response) {
   await fetch(`${apiEndpoint}${apiMessagesEndpoint}`, {
@@ -162,16 +188,35 @@ app.post("/webinars/:slug", async function (request, response) {
 })
 
 app.post("/bookmarks", async function (request, response) {
-  await fetch(`${apiEndpoint}${apiMessagesEndpoint}`, {
-    method: "POST",
-    body: JSON.stringify({
-      text: request.body.textField,
-      for: request.body.forField,
-    }),
-    headers: {
-      "Content-Type": "application/json;charset=UTF-8"
+  const { textField, forField, _method } = request.body
+
+  if (_method === "DELETE") {
+
+    const bookmarksResponse = await fetch(`${apiEndpoint}${apiMessagesEndpoint}${messagesFilter}`)
+    const bookmarksResponseJSON = await bookmarksResponse.json()
+
+    const bookmarkToDelete = bookmarksResponseJSON.data.find(
+      bookmark => bookmark.text === textField && bookmark.for === "Bookmark for Julia"
+    );
+
+    if (bookmarkToDelete) {
+      console.log("Deleting bookmark:", bookmarkToDelete.id);
+
+      await fetch(`${apiEndpoint}${apiMessagesEndpoint}/${bookmarkToDelete.id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json;charset=UTF-8" }
+      })
     }
-  })
+
+    await fetch(`${apiEndpoint}${apiMessagesEndpoint}`, {
+      method: "POST",
+      body: JSON.stringify({
+        text: textField,
+        for: forField
+      }),
+      headers: { "Content-Type": "application/json;charset=UTF-8" }
+    })
+  }
   response.redirect(303, "/bookmarks")
 })
 
