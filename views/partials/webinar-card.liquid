@@ -15,7 +15,7 @@
                   </p>
             {% endfor %}
 
-            <h3>{{ webinar.title | truncatewords: 6 }}</h3>
+            <h3>{{ webinar.title | truncatewords: 4 }}</h3>
 
             {% for speaker in webinar.speakers %}
                 <p class="speaker">{{ speaker.avl_speakers_id.fullname }}</p>
