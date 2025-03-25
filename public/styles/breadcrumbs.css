@@ -2,7 +2,7 @@
     background-color: var(--primary-light);
     height: fit-content;
     padding: 2rem 1rem 1rem 1rem;
-    margin-top: 1rem;
+    margin-top: -1rem;
     a {
         color: var(--primary);
         transition: var(--transition);

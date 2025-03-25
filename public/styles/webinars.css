@@ -1,8 +1,12 @@
 .all-webinars {
+    display: flex; 
+    flex-direction: column;
+    /* align-items: start; */
+    gap: .5rem;
     .webinars-overview {
         display: flex; 
         flex-direction: column;
-        align-items: start;
+        align-items: center;
         gap: 1rem;
         @media (min-width: 1000px) {
             flex-direction: row;

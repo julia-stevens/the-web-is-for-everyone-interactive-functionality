@@ -2,21 +2,20 @@
 {% include "partials/head.liquid" %}
 
     <main>
-            <div class="breadcrumbs-links">
-                <a href="/">Home</a>
-                <a href="/bookmarks">/ Bookmarks</a>
-            </div>
+        <div class="breadcrumbs-links">
+            <a href="/">Home</a>
+            <a href="/bookmarks">/ Bookmarks</a>
+        </div>
 
-            <div class="page-title">
-                <h1>Bookmarks</h1>
-                <p></p>
-            </div>
+        <div class="page-title">
+            <h1>Bookmarks</h1>
+            <p></p>
+        </div>
         {% for webinar in webinars %}
             <div class="webinars-overview">
                 {% include "partials/webinar-card.liquid" %}
             </div>
         {% endfor %}
     </main>
-
 
 {% render "partials/foot.liquid" %}
