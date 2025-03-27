@@ -31,10 +31,10 @@ nav {
         flex-direction: row;
         justify-content: center;
     }
+}
 
-    img {
-        width: 150px;
-    }
+.nav-logos img {
+    width: 150px;
 }
 
 @supports not (display: flex) {
