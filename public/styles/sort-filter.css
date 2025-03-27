@@ -1,0 +1,78 @@
+.filter-sort {
+    background-color: var(--primary-light);
+    border-radius: 1rem;
+    padding: 1rem 1rem;
+    width: 90vw;
+    max-width: 1087px;
+
+    display: flex; 
+    flex-direction: column;
+    align-items: start;
+    gap: 1rem;
+
+    .sort {
+        display: flex; 
+        flex-direction: column;
+        align-items: start; 
+        gap: .5rem;
+        select {
+            cursor: pointer;
+            border: none; 
+            background-color: var(--secondary-light);
+            padding: .5rem 1rem;
+            border-radius: 5px;
+            /* height: 2rem; */
+            color: white;
+            font-size: 1rem;
+            font-weight: var(--font-weight-bold);
+        }
+
+        @media (min-width: 450px) {
+            flex-direction: row;
+            align-items: center;
+        }
+    }
+
+    .filter {
+        display: flex; 
+        flex-direction: column;
+        align-items: start;
+        gap: .5rem;
+        width: 100%;
+
+        .filters {
+            display: flex; 
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: .5rem;
+            max-width: 100%;
+
+            label {
+                display: inline; 
+                cursor: pointer;
+                color: white;
+                font-size: 1rem;
+                font-weight: var(--font-weight-bold);
+                background-color: var(--secondary);
+                padding: .5rem 1rem;
+                border-radius: 5px;
+                transition: .2s ease-in-out;
+                max-width: fit-content;
+
+                &:hover {
+                    background-color: var(--secondary-light);
+                }
+            }
+            input[type="radio"] {
+                appearance: none;
+                position: absolute; 
+                opacity: 0; 
+            }
+
+            label:has(input[type="radio"]:checked) {
+                background-color: var(--secondary-light);
+            }
+
+        }
+    }
+}
