@@ -1,4 +1,27 @@
+/* unwrapped css */
 .empty-bookmarks {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.empty-bookmarks img {
+    width: 50vw;
+    max-width: 150px;
+}
+
+.empty-bookmarks p a {
+    font-weight: var(--font-weight-bold, 700);
+    text-decoration: underline;
+    transition: var(--transition, .2s ease-in);
+}
+
+.empty-bookmarks p a:hover {
+    color: var(--secondary, #19B2A2);
+}
+
+/* .empty-bookmarks {
     display: flex; 
     flex-direction: column;
     align-items: center;
@@ -8,16 +31,15 @@
         max-width: 150px;
 
     }
-
     p {
         a {
-            font-weight: var(--font-weight-bold);
+            font-weight: var(--font-weight-bold, 700);
             text-decoration: underline; 
-            transition: var(--transition);
+            transition: var(--transition, .2s ease-in);
 
             &:hover {
-                color: var(--secondary);
+                color: var(--secondary, #19B2A2);
             }
         }
     }
-}
+} */
