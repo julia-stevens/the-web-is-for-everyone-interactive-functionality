@@ -7,25 +7,36 @@ header {
     width: 100%;
     top: 0; 
     z-index: 99;
+
+    nav {
+        width: 100%;
+        max-width: 1366px;
+        margin: 0 auto;
+    }
+
     .header-nav {
         display: flex; 
         flex-direction: row;
         justify-content: space-around;
         align-items: center;
+
         .nav-logos {
             display: flex; 
             flex-direction: column;
             align-items: center;
+
             @media (min-width: 330px) {
                 flex-direction: row;
                 justify-content: center;
             }
+
             img {
                 width: 150px;
             }
         }
         .nav-links {
             display: none; 
+
             @media (min-width: 890px) {
                 font-weight: var(--font-weight-bold);
                 flex-grow: 1;
@@ -35,13 +46,20 @@ header {
                 flex-direction: row;
                 align-items: center;
                 justify-content: space-between;
+
                 .nav-link {
                     display: flex; 
                     flex-direction: row;
                     align-items: center;
                     gap: .5rem;
+                    transition: var(--transition);
+
                     img {
                         width: 20px;
+                    }
+
+                    &:not(:last-of-type):hover { /* hover maar niet op laatste a (profile knop) */
+                        color: var(--secondary);
                     }
                 }
                 .highlight-btn {
@@ -49,6 +67,7 @@ header {
                     --btn-padding: .5rem 1rem;
                     background-color: var(--secondary);
                     color: var(--light);
+
                     &:hover {
                         background-color: #0b9385;
                     }
