@@ -28,6 +28,22 @@ nav {
     }
 }
 
+@supports not (display: grid) {
+    nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@supports not (place-items: center) {
+    nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
 .footer-logos {
     display: none; 
 
@@ -61,6 +77,13 @@ nav {
     }
 }
 
+@supports not (display: flex) {
+    .footer-links {
+        display: inline; 
+        margin-right: .5em;
+    }
+}
+
 .footer-links p {
     display: none;
     
@@ -75,9 +98,10 @@ nav {
     flex-direction: column; 
     align-items: center;
     justify-content: space-between;
-    height: 2.5rem;
+    height: 100%;
     font-size: 10px; 
     transition: var(--transition, .2s ease-in);
+    color: var(--light, white);
 
     @media (min-width: 890px) {
         font-size: 1rem;
@@ -88,6 +112,12 @@ nav {
 
     &:hover {
         color: var(--secondary, #19B2A2);
+    }
+}
+
+@supports not (display: flex) {
+    .footer-links a {
+        display: block; 
     }
 }
 
