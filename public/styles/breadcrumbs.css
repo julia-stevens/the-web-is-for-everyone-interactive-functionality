@@ -1,18 +1,32 @@
+/* unwrapped css */
 .breadcrumbs-links {
     width: 100%;
-    background-color: var(--primary-light);
+    background-color: var(--primary-light, #E6E5EB);
     height: fit-content;
     padding: 2rem 1rem 1rem 1rem;
     margin-top: -1rem;
-
-    a {
-        color: var(--primary);
-        transition: var(--transition);
-        &:first-of-type {
-            font-weight: var(--font-weight-bold);
-        }
-        &:hover {
-            color: var(--secondary);
-        }
-    }
 }
+
+.breadcrumbs-links a {
+    color: var(--primary, #1F307D);
+    transition: var(--transition, .2s ease-in);
+}
+
+.breadcrumbs-links a:first-of-type {
+    font-weight: var(--font-weight-bold, 700);
+}
+
+.breadcrumbs-links a:hover {
+    color: var(--secondary, #19B2A2);
+}
+
+/* .breadcrumbs-links a {
+    color: var(--primary);
+    transition: var(--transition);
+    &:first-of-type {
+        font-weight: var(--font-weight-bold);
+    }
+    &:hover {
+        color: var(--secondary);
+    }
+} */
