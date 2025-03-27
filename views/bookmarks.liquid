@@ -1,21 +1,34 @@
 {% assign pageTitle = "Bookmarks | Oncollaboration" %}
 {% include "partials/head.liquid" %}
 
-    <main>
-        <div class="breadcrumbs-links">
-            <a href="/">Home</a>
-            <a href="/bookmarks">/ Bookmarks</a>
-        </div>
+    <div class="breadcrumbs-links">
+        <a href="/">Home</a>
+        <a href="/bookmarks">/ Bookmarks</a>
+    </div>
 
+    <main>
         <div class="page-title">
             <h1>Bookmarks</h1>
-            <p></p>
+            <p>Your bookmarked webinars are saved here for easy access. Revisit expert insights and the latest practices in radiotherapy at your convenience. Stay up to date with advancements in the field, all in one place.</p>
         </div>
-        {% for webinar in webinars %}
-            <div class="webinars-overview">
-                {% include "partials/webinar-card.liquid" %}
+
+        {% if webinars.size == 0 %}
+            {% include "partials/bookmarks-empty.liquid" %}
+        {% else %}
+            <div class="sort-filter">
+                {% include "partials/sort-filter.liquid" %}
             </div>
-        {% endfor %}
+
+            <section class="all-webinars">
+                <h2>Overview bookmarks</h2>
+                <div class="webinars-overview">
+                    {% for webinar in webinars %}
+                        {% include "partials/webinar-card.liquid" %}
+                    {% endfor %}
+                </div>
+            </section>
+        {% endif %}
+
     </main>
 
 {% render "partials/foot.liquid" %}

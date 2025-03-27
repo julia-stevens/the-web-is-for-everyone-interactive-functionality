@@ -1,0 +1,23 @@
+.empty-bookmarks {
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    img {
+        width: 50vw;
+        max-width: 150px;
+
+    }
+
+    p {
+        a {
+            font-weight: var(--font-weight-bold);
+            text-decoration: underline; 
+            transition: var(--transition);
+
+            &:hover {
+                color: var(--secondary);
+            }
+        }
+    }
+}

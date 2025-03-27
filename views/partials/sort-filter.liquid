@@ -2,7 +2,7 @@
     <h2>Sort & filter</h2>
     <form class="sort">
         <label>
-            Sort by: 
+            Sort by 
             <select name="sort">
                 <option value="newest" 
                     {% if currentSort == "newest" %} selected {% endif %}>
@@ -33,9 +33,21 @@
             </label>
 
             {% for category in categories %}
+                {% assign words = category.name | split: " " %}
+                {% assign new_name = "" %}
+                
+                {% for word in words %}
+                    {% assign capitalized_word = word | capitalize %}
+                    {% if forloop.first %}
+                        {% assign new_name = capitalized_word %}
+                    {% else %}
+                        {% assign new_name = new_name | append: " " | append: capitalized_word %}
+                    {% endif %}
+                {% endfor %}
+            
                 <label>
                     <input type="radio" name="category" value="{{ category.name }}" {% if currentCategory == category.name %} checked {% endif %}>
-                    <span>{{ category.name }}</span>
+                    <span>{{ new_name }}</span>
                 </label>
             {% endfor %}
         </div>
