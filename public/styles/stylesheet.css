@@ -22,8 +22,9 @@ body {
     --highlight: #DBE002; 
     --light: white; 
     --background-color: #F7F5F5; 
-    background-color: var(--background-color);
-    color: var(--primary);
+
+    background-color: var(--background-color, #F7F5F5);
+    color: var(--primary, #1F307D);
 
     --font-family-headings: "VAGRundschriftD";
     --font-family-body: "Open Sans", sans-serif; 
@@ -33,12 +34,13 @@ body {
     --font-weight-semibold: 600;  
     --font-weight-bold: 700;  
     --font-weight-extrabold: 800;  
-    font-family: var(--font-family-body);
-    font-weight: var(--font-weight-regular);
+
+    font-family: var(--font-family-body, "Open Sans", sans-serif);
+    font-weight: var(--font-weight-regular, 400);
     font-size: 16px;
 
     h1, h2, h3, h4 {
-        font-family: var(--font-family-headings);
+        font-family: var(--font-family-headings, "VAGRundschriftD", sans-serif);
     }
         
     a {
@@ -46,11 +48,11 @@ body {
         color: inherit;
         --transition: .2s ease-in; 
     }
-    
+
     ul {
         list-style-type: none;
     }
-    
+
     button {
         cursor: pointer;
         appearance: none;
@@ -59,10 +61,10 @@ body {
 
         &.highlight-btn {
             --btn-transition: .2s ease-in; 
-            transition: var(--btn-transition);
+            transition: var(--btn-transition, .2s ease-in);
             &:hover {
                 --background-color: rgb(186, 189, 0);
-                background-color: var(--background-color);
+                background-color: var(--background-color, #F7F5F5);
             }
         }
     }
@@ -72,13 +74,13 @@ body {
     --btn-transition: .2s ease-in; 
     --border-radius: 5px 16px 5px 5px;
     --btn-padding: .25rem .5rem; 
-    transition: var(--btn-transition);
-    color: var(--primary);
-    background-color: var(--highlight);
-    padding: var(--btn-padding);
-    border-radius: var(--border-radius);
+    transition: var(--btn-transition, .2s ease-in);
+    color: var(--primary, #1F307D);
+    background-color: var(--highlight, #DBE002);
+    padding: var(--btn-padding, .25rem .5rem);
+    border-radius: var(--border-radius, 5px 16px 5px 5px);
     &:hover {
-        background-color: var(--background-color);
+        background-color: var(--background-color, #F7F5F5);
     }
 }
 
@@ -86,15 +88,15 @@ body {
     --btn-transition: .2s ease-in; 
     --border-radius: 5px 5px 5px 5px;
     --btn-padding: .5rem 1rem; 
-    transition: var(--btn-transition);
-    color: var(--light);
-    font-weight: var(--font-weight-bold);
+    transition: var(--btn-transition, .2s ease-in);
+    color: var(--light, white);
+    font-weight: var(--font-weight-bold, 700);
     font-size: 1rem;
-    background-color: var(--primary);
-    padding: var(--btn-padding);
-    border-radius: var(--border-radius);
+    background-color: var(--primary, #1F307D);
+    padding: var(--btn-padding, .5rem 1rem);
+    border-radius: var(--border-radius, 5px 5px 5px 5px);
     &:hover {
-        background-color: var(--secondary);
+        background-color: var(--secondary, #19B2A2);
     }    
 }
 
@@ -131,16 +133,39 @@ body {
     gap: .5rem;
 }
 
+@supports not (gap: .5rem){
+    .page-title {
+        margin-bottom: .5rem;
+    }
+}
+
+@supports not (display: flex){
+    .page-title {
+        margin-bottom: .5rem;
+        display: block; 
+    }
+}
 
 main {
     max-width: 1350px;
     margin: 0 auto;
-
     display: flex;
     flex-direction: column;
     align-items: start;
     gap: 1rem;
-
     padding: 0 1rem;
+    margin-bottom: 6rem;
 }
 
+@supports not (display: flex){
+    main {
+        margin-bottom: 1rem;
+        display: block; 
+    }
+}
+
+@supports not (gap: 1rem) {
+    main {
+        margin-bottom: 1rem;
+    }
+}
