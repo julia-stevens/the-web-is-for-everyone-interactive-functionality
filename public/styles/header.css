@@ -1,77 +1,88 @@
 header {
-    background-color: var(--primary);
-    color: var(--light);
+    background-color: var(--primary, #1F307D);
+    color: var(--light, white);
     padding: .5rem 1rem;
     border-radius: 0 0 1rem 1rem;
     position: sticky; 
     width: 100%;
     top: 0; 
     z-index: 99;
+}
 
-    nav {
-        width: 100%;
-        max-width: 1366px;
-        margin: 0 auto;
+nav {
+    width: 100%;
+    max-width: 1366px;
+    margin: 0 auto;
+}
+
+.header-nav {
+    display: flex; 
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.nav-logos {
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+
+    @media (min-width: 330px) {
+        flex-direction: row;
+        justify-content: center;
     }
 
+    img {
+        width: 150px;
+    }
+}
+
+@supports not (display: flex) {
     .header-nav {
+        display: inline; 
+    }
+
+    .nav-logos {
+        display: block; 
+    }
+}
+
+.nav-links {
+    display: none; 
+
+    @media (min-width: 890px) {
+        font-weight: var(--font-weight-bold, 700);
+        flex-grow: 1;
+        max-width: 842px;
+        /* FLEX parent */
         display: flex; 
         flex-direction: row;
-        justify-content: space-around;
         align-items: center;
+        justify-content: space-between;
 
-        .nav-logos {
+        .nav-link {
             display: flex; 
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
-
-            @media (min-width: 330px) {
-                flex-direction: row;
-                justify-content: center;
-            }
+            gap: .5rem;
+            transition: var(--transition, .2s ease-in);
 
             img {
-                width: 150px;
+                width: 20px;
+            }
+
+            &:not(:last-of-type):hover { /* hover maar niet op laatste a (profile knop) */
+                color: var(--secondary, #19B2A2);
             }
         }
-        .nav-links {
-            display: none; 
+        .highlight-btn {
+            --border-radius: 5px;
+            --btn-padding: .5rem 1rem;
+            background-color: var(--secondary, #19B2A2);
+            color: var(--light, white);
 
-            @media (min-width: 890px) {
-                font-weight: var(--font-weight-bold);
-                flex-grow: 1;
-                max-width: 842px;
-                /* FLEX parent */
-                display: flex; 
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-between;
-
-                .nav-link {
-                    display: flex; 
-                    flex-direction: row;
-                    align-items: center;
-                    gap: .5rem;
-                    transition: var(--transition);
-
-                    img {
-                        width: 20px;
-                    }
-
-                    &:not(:last-of-type):hover { /* hover maar niet op laatste a (profile knop) */
-                        color: var(--secondary);
-                    }
-                }
-                .highlight-btn {
-                    --border-radius: 5px;
-                    --btn-padding: .5rem 1rem;
-                    background-color: var(--secondary);
-                    color: var(--light);
-
-                    &:hover {
-                        background-color: #0b9385;
-                    }
-                }
+            &:hover {
+                background-color: #0b9385;
             }
         }
     }
