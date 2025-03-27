@@ -2,7 +2,7 @@
     <h3 class="sr-only" inert>{{ webinar.title }}</h3>
     <a href="/webinars/{{ webinar.slug }}">
         <div class="webinar-thumbnail">
-            <img src="https://fdnd-agency.directus.app/assets/{{ webinar.thumbnail }}" alt="" width="100">
+            <img src="https://fdnd-agency.directus.app/assets/{{ webinar.thumbnail | default: "assets/images/default-webinar.avif"}}" alt="" width="100">
             <p class="duration-btn">{{ webinar.duration }}</p>
         </div>
         <div class="webinar-info">
