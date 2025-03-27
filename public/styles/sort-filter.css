@@ -11,6 +11,12 @@
     gap: 1rem;
 }
 
+@supports not (gap: 1rem) {
+    .filter-sort {
+        margin-bottom: 1rem;
+    }
+}
+
 .sort {
     display: flex; 
     flex-direction: column;
@@ -49,6 +55,16 @@
     flex-wrap: wrap;
     gap: .5rem;
     max-width: 100%;
+}
+
+@supports not (gap: .5rem) {
+    .sort, .filter {
+        margin-bottom: .5rem;
+    }
+
+    .filters {
+        margin-right: .5rem;
+    }
 }
 
 @supports not (display: flex) {
