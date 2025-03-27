@@ -24,7 +24,7 @@ nav {
 
 .nav-logos {
     display: flex; 
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
 
     @media (min-width: 330px) {
@@ -34,7 +34,8 @@ nav {
 }
 
 .nav-logos img {
-    width: 150px;
+    width: 30vw;
+    max-width: 150px;
 }
 
 @supports not (display: flex) {
