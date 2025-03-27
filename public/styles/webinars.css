@@ -28,4 +28,8 @@
     .webinars-overview {
         margin-bottom: 1rem;
     }
+
+    .webinars-overview article {
+        margin-right: .5rem;
+    }
 }
