@@ -36,14 +36,13 @@
         {% if bookmarkedIds contains webinar.id %}
             <button type="submit" class="bookmark-btn highlight-btn" >
                 <img src="/assets/icons/bookmarks-blue-marked.svg" alt="" width="20">    
-                {% comment %} {% include "public/assets/icons/bookmarks-blue-marked.liquid" %} {% endcomment %}
-                Bookmarked
+                <span>Bookmarked</span>
             </button> 
         {% else %}
             <button type="submit" class="bookmark-btn highlight-btn">
                 <img src="/assets/icons/bookmarks-blue.svg" alt="" width="20">
                 {% comment %} {% include "public/assets/icons/bookmarks-blue.liquid" %} {% endcomment %}
-                Bookmark
+                <span>Bookmark</span>
             </button>
         {% endif %}
     </form>
