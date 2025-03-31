@@ -28,19 +28,21 @@
         </div>
     </a>
     
-    <form method="post" action="/webinars" class="webinar-form">
+    <form method="post" action="/webinars" class="webinar-form" data-enhanced="form-{{ webinar.id }}">
         <input type="hidden" name="textField" value="{{ webinar.id }}">
         <input type="hidden" name="forField" value="Bookmark for Julia">
         <input type="hidden" name="_method" value="{% if bookmarkedIds contains webinar.id %}DELETE{% else %}POST{% endif %}">
         
         {% if bookmarkedIds contains webinar.id %}
-            <button type="submit" class="bookmark-btn highlight-btn">
+            <button type="submit" class="bookmark-btn highlight-btn" >
                 <img src="/assets/icons/bookmarks-blue-marked.svg" alt="" width="20">    
+                {% comment %} {% include "public/assets/icons/bookmarks-blue-marked.liquid" %} {% endcomment %}
                 Bookmarked
             </button> 
         {% else %}
             <button type="submit" class="bookmark-btn highlight-btn">
                 <img src="/assets/icons/bookmarks-blue.svg" alt="" width="20">
+                {% comment %} {% include "public/assets/icons/bookmarks-blue.liquid" %} {% endcomment %}
                 Bookmark
             </button>
         {% endif %}

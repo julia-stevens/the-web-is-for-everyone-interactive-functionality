@@ -62,6 +62,7 @@ body {
         &.highlight-btn {
             --btn-transition: .2s ease-in; 
             transition: var(--btn-transition, .2s ease-in);
+            font-size: 16px; 
             &:hover {
                 --background-color: rgb(186, 189, 0);
                 background-color: var(--background-color, #F7F5F5);
@@ -166,6 +167,6 @@ main {
 
 @supports not (gap: 1rem) {
     main {
-        margin-bottom: 6rem;
+        margin-bottom: 6    rem;
     }
 }

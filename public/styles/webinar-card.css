@@ -137,12 +137,35 @@
     right: 0; 
 }
 
+/* .webinar-form.loading button {
+    background-color: cornflowerblue;
+} */
+
+.webinar-form button img {
+    width: 25px;
+    /* color: white; */
+    /* content: url("/assets/icons/profile.svg"); */
+}
+
+
+.webinar-form.loading button img {
+    width: 25px;
+    height: 35px;
+    content: url("/assets/icons/bookmarks-loading.svg");
+    animation: loadingRotation 1.5s ease-in-out infinite;
+}
+
 @supports not (display: flex) {
     .webinar-form button {
         display: block; 
     }
 }
 
-.webinar-form button img {
-    width: 25px;
+@keyframes loadingRotation {
+    0% {
+        rotate: 0deg;
+    }
+    100% {
+        rotate: 360deg;
+    }
 }
