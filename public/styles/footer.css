@@ -26,6 +26,7 @@ footer {
 nav {
     display: grid; 
     place-items: center; 
+    padding-bottom: .5rem;
 
     @media (min-width: 890px) {
         display: flex; 

@@ -103,7 +103,7 @@
 }
 
 .webinar-info a:last-of-type {
-    color: var(--secondary, #19B2A2);
+    color: var(--primary, #1F307D);
     font-weight: var(--font-weight-bold, 700);
     /* FLEX parent */
     display: flex; 

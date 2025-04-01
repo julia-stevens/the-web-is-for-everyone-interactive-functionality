@@ -30,7 +30,7 @@
         padding: .5rem 1rem;
         border-radius: 5px;
         /* height: 2rem; */
-        color: white;
+        color: #1F307A;
         font-size: 1rem;
         font-weight: var(--font-weight-bold, 700);
     }
@@ -86,7 +86,7 @@
 .filters label {
     display: inline; 
     cursor: pointer;
-    color: white;
+    color: #1F307A;
     font-size: 1rem;
     font-weight: var(--font-weight-bold, 700);
     background-color: var(--secondary, #19B2A2);
