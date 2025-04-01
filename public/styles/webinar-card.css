@@ -145,6 +145,11 @@
     width: 25px;
 }
 
+.webinar-form.loading button {
+    --background-color: rgb(186, 189, 0);
+    background-color: var(--background-color, #babd00);
+}
+
 .webinar-form.loading button img {
     width: 25px;
     height: 35px;
