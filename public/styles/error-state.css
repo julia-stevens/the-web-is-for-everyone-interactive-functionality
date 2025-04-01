@@ -1,0 +1,13 @@
+.error {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 1rem;    
+}
+
+.pages-overview {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 1rem;   
+}
