@@ -26,6 +26,7 @@
     position: relative; 
     width: calc(80vw - calc(2*.75rem));
     max-width: calc(428px - calc(2*.75rem));
+    min-height: 10rem;
 }
 
 .webinar-thumbnail img {
