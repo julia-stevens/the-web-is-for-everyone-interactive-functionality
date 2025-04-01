@@ -68,12 +68,16 @@ nav {
             gap: .5rem;
             transition: var(--transition, .2s ease-in);
 
-            img {
+            svg {
                 width: 20px;
             }
 
             &:not(:last-of-type):hover { /* hover maar niet op laatste a (profile knop) */
                 color: var(--secondary, #19B2A2);
+
+                svg path{
+                    fill: currentColor;
+                }
             }
         }
         .highlight-btn {
