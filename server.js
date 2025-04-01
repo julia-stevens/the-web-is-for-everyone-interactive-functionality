@@ -220,6 +220,13 @@ app.post("/bookmarks", async function (request, response) {
 
 app.set('port', process.env.PORT || 8000)
 
+// 404 pagina
+app.use((request, response, next) => {
+  response.status(404).render("error.liquid")
+})
+
 app.listen(app.get('port'), function () {
   console.log(`http://localhost:${app.get('port')}`)
 })
+
+// /Users/juliastevens/Desktop/fdnd/sprint 9/the-web-is-for-everyone-interactive-functionality/views/partials/error.liquid
