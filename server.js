@@ -169,7 +169,7 @@ app.post("/webinars", async function (request, response) {
       headers: { "Content-Type": "application/json;charset=UTF-8" }
     })
   }
-  response.redirect(303, "/webinars")
+  response.redirect(303, request.get("Referer") || "/webinars")
 })
 
 
@@ -197,11 +197,9 @@ app.post("/bookmarks", async function (request, response) {
 
     const bookmarkToDelete = bookmarksResponseJSON.data.find(
       bookmark => bookmark.text === textField && bookmark.for === "Bookmark for Julia"
-    );
+    )
 
     if (bookmarkToDelete) {
-      console.log("Deleting bookmark:", bookmarkToDelete.id);
-
       await fetch(`${apiEndpoint}${apiMessagesEndpoint}/${bookmarkToDelete.id}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json;charset=UTF-8" }
@@ -217,7 +215,7 @@ app.post("/bookmarks", async function (request, response) {
       headers: { "Content-Type": "application/json;charset=UTF-8" }
     })
   }
-  response.redirect(303, "/bookmarks")
+  response.redirect(303, request.get("Referer") || "/bookmarks")
 })
 
 app.set('port', process.env.PORT || 8000)

@@ -28,7 +28,7 @@
         </div>
     </a>
     
-    <form method="post" action="/webinars" class="webinar-form" data-enhanced="form-{{ webinar.id }}">
+    <form method="post" action="{% if request.path == '/bookmarks' %}/bookmarks{% else %}/webinars{% endif %}" class="webinar-form" data-enhanced="form-{{ webinar.id }}">
         <input type="hidden" name="textField" value="{{ webinar.id }}">
         <input type="hidden" name="forField" value="Bookmark for Julia">
         <input type="hidden" name="_method" value="{% if bookmarkedIds contains webinar.id %}DELETE{% else %}POST{% endif %}">
