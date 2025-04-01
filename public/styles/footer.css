@@ -1,6 +1,7 @@
-body { 
-    position: relative;
+body {
     min-height: 100vh;
+    height: max-content;
+    position: relative; 
 }
 
 footer {
@@ -17,7 +18,8 @@ footer {
         display: flex; 
         flex-direction: column;
         gap: .5rem;
-        position: relative; 
+        position: absolute;
+        bottom: 0; 
     }
 }
 

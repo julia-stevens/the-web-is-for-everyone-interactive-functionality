@@ -155,7 +155,8 @@ main {
     align-items: start;
     gap: 1rem;
     padding: 0 1rem;
-    margin-bottom: 6rem;
+    padding-bottom: 266px;
+    /* padding-bottom: 10rem; */
 }
 
 @supports not (display: flex){
