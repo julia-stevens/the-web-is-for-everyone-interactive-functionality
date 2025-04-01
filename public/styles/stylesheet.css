@@ -119,6 +119,10 @@ body {
     left: -500px;
     z-index: 999;
     transition: var(--text-hover-transition); 
+    background-color: var(--highlight, #DBE002);
+    color: var(--primary, #1F307D);
+    font-weight: var(--font-weight-bold);
+    padding: .5rem 1rem;
  
     &:focus {
      left: 3rem;
