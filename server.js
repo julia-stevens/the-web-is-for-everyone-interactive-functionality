@@ -28,19 +28,9 @@ app.get("/", async function (request, response) {
   const contouringResponse = await fetch(`${apiEndpoint}${apiContouringEndpoint}`)
   const contouringResponseJSON = await contouringResponse.json()
 
-  // van ChatGPT om alle resources op te halen 
-  let allResources = [] // allResources array 
-  webinarResponseJSON.data.forEach((webinar) => { // voor elke webinar
-    if (webinar.resources && Array.isArray(webinar.resources)) { // als er resources zijn & webinar.resources is een array
-      allResources = allResources.concat(webinar.resources) // dan voeg de resources toe aan de array (allResources) 
-    }
-  })
-  // einde ChatGPT code
-
   response.render("index.liquid", {
     webinars: webinarResponseJSON.data,
-    contourings: contouringResponseJSON.data,
-    resources: allResources
+    contourings: contouringResponseJSON.data
   })
 })
 
@@ -228,5 +218,3 @@ app.use((request, response, next) => {
 app.listen(app.get('port'), function () {
   console.log(`http://localhost:${app.get('port')}`)
 })
-
-// /Users/juliastevens/Desktop/fdnd/sprint 9/the-web-is-for-everyone-interactive-functionality/views/partials/error.liquid
