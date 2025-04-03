@@ -61,6 +61,15 @@ Voor dit herontwerp was het belangrijk om het kleur contrast te testen i.v.m. to
 
 <img width="350" src="https://github.com/user-attachments/assets/2df1c116-1955-4e46-8e2c-2e2086d20528">
 
+#### UI states
+Deze sprint heb ik ook gewerkt aan verschillende UI states, dit is bijvoorbeeld terug te vinden bij de `bookmarks` pagina, wanneer er nog geen bookmarks gedaan zijn. 
+
+Zie onderstaande afbeeldingen voor een aantal voorbeelden. Een deel van de states heb ik al uitgewerkt, maar een deel ook nog niet. Zo wil ik bijvoorbeeld nog de error state toevoegen aan de 'bookmark' knop. 
+
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/2b8fe5f6-85a9-473a-a7b7-65488a6381c0" />
+
+<img width="350" alt="image" src="https://github.com/user-attachments/assets/c8e86635-a85f-4fcb-9aab-10c810046e0a" />
+
 ### Belangrijke features
 #### Bookmark functionaliteit met progressive enhancement
 Deze sprint heb ik gewerkt aan een werkende bookmark functionaliteit. Dit heb ik volgens de _progressive enhancement_ strategie gemaakt. 
