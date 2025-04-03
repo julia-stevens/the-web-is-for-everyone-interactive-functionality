@@ -19,14 +19,3 @@
 .breadcrumbs-links a:hover {
     color: var(--secondary, #19B2A2);
 }
-
-/* .breadcrumbs-links a {
-    color: var(--primary);
-    transition: var(--transition);
-    &:first-of-type {
-        font-weight: var(--font-weight-bold);
-    }
-    &:hover {
-        color: var(--secondary);
-    }
-} */

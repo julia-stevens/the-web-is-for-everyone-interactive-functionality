@@ -9,7 +9,7 @@ const engine = new Liquid();
 app.engine('liquid', engine.express());
 app.set('views', './views')
 
-import methodOverride from "method-override"
+import methodOverride from "method-override" // Importeer de "method-override" module, die het mogelijk maakt om HTTP-methoden zoals PUT en DELETE te gebruiken
 app.use(methodOverride("_method"))
 
 // API response links
@@ -69,10 +69,10 @@ app.get("/webinars", async function (request, response) {
   const bookmarksResponse = await fetch(`${apiEndpoint}${apiMessagesEndpoint}${messagesFilter}`)
   const bookmarksResponseJSON = await bookmarksResponse.json()
 
-  const bookmarkedWebinarIds = bookmarksResponseJSON.data.map(bookmark => String(bookmark.text));
-  const webinarsWithStringIds = webinarResponseJSON.data.map(webinar => ({
-    ...webinar,
-    id: String(webinar.id)
+  const bookmarkedWebinarIds = bookmarksResponseJSON.data.map(bookmark => String(bookmark.text)) // Converteer de "text" eigenschap van elk bookmark-object naar een string en sla deze op in een array
+  const webinarsWithStringIds = webinarResponseJSON.data.map(webinar => ({ // Nieuwe array waarin alle webinars worden gekopieerd en "id" wordt omgezet naar string
+    ...webinar, // Kopieer alle bestaande eigenschappen van het webinar object
+    id: String(webinar.id) // Zet "id" om naar een string
   }))
 
   response.render("webinars.liquid", {
@@ -114,14 +114,14 @@ app.get("/bookmarks", async function (request, response) {
   const categoriesResponse = await fetch(`${apiEndpoint}${apiCategoriesEndpoint}`)
   const categoriesResponseJSON = await categoriesResponse.json()
 
-  const bookmarkedWebinarIds = bookmarksResponseJSON.data.map(bookmark => String(bookmark.text));
-  const webinarsWithStringIds = webinarResponseJSON.data.map(webinar => ({
-    ...webinar,
-    id: String(webinar.id)
+  const bookmarkedWebinarIds = bookmarksResponseJSON.data.map(bookmark => String(bookmark.text)) // Converteer de "text" eigenschap van elk bookmark-object naar een string en sla deze op in een array
+  const webinarsWithStringIds = webinarResponseJSON.data.map(webinar => ({ // Nieuwe array waarin alle webinars worden gekopieerd en "id" wordt omgezet naar string
+    ...webinar, // Kopieer alle bestaande eigenschappen van het webinar object
+    id: String(webinar.id) // Zet "id" om naar een string
   }))
 
-  const bookmarkedWebinars = webinarsWithStringIds.filter(webinar =>
-    bookmarkedWebinarIds.includes(webinar.id)
+  const bookmarkedWebinars = webinarsWithStringIds.filter(webinar => // Filter lijst van webinars om alleen webinars over te houden waarvan id voorkomt in lijst met bookmarked webinar id's
+    bookmarkedWebinarIds.includes(webinar.id) // controleer of "id" van webinar voorkomt in bookmarked (opgeslagen) id's
   )
   
   response.render("bookmarks.liquid", {
@@ -133,33 +133,33 @@ app.get("/bookmarks", async function (request, response) {
 })
 
 app.post("/webinars", async function (request, response) {
-  const { textField, forField, _method } = request.body
+  const { textField, forField, _method } = request.body // haal op uit body
 
-  if (_method === "DELETE") {
+  if (_method === "DELETE") { // als method is DELETE (in liquid bepaald)
     const bookmarksResponse = await fetch(`${apiEndpoint}${apiMessagesEndpoint}${messagesFilter}`)
     const bookmarksResponseJSON = await bookmarksResponse.json()
 
-    const bookmarkToDelete = bookmarksResponseJSON.data.find(
-      bookmark => bookmark.text === textField && bookmark.for === "Bookmark for Julia"
+    const bookmarkToDelete = bookmarksResponseJSON.data.find( // Zoek in lijst van bookmarks
+      bookmark => bookmark.text === textField && bookmark.for === "Bookmark for Julia" // of "text" = textField én "for" = "Bookmark for Julia"
     )
 
-    if (bookmarkToDelete) {
+    if (bookmarkToDelete) { // als bookmark gevonden is die aan conditions voldoet, dan delete
       await fetch(`${apiEndpoint}${apiMessagesEndpoint}/${bookmarkToDelete.id}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json;charset=UTF-8" }
       })
     }
-  } else {
+  } else { // als method is geen DELETE 
     await fetch(`${apiEndpoint}${apiMessagesEndpoint}`, {
-      method: "POST",
+      method: "POST", // dus POST method
       body: JSON.stringify({
-        text: textField,
-        for: forField
+        text: textField, // text = webinar ID van gepostte webinar
+        for: forField // Bookmark for Julia
       }),
       headers: { "Content-Type": "application/json;charset=UTF-8" }
     })
   }
-  response.redirect(303, request.get("Referer") || "/webinars")
+  response.redirect(303, request.get("Referer") || "/webinars") // Referer heeft URL van vorige pagina en gebruiker wordt geredirect naar deze pagina (default is ander /webinars)
 })
 
 
@@ -178,34 +178,34 @@ app.post("/webinars/:slug", async function (request, response) {
 })
 
 app.post("/bookmarks", async function (request, response) {
-  const { textField, forField, _method } = request.body
+  const { textField, forField, _method } = request.body // haal op uit body
 
-  if (_method === "DELETE") {
-
+  if (_method === "DELETE") { // als method is DELETE (in liquid bepaald)
     const bookmarksResponse = await fetch(`${apiEndpoint}${apiMessagesEndpoint}${messagesFilter}`)
     const bookmarksResponseJSON = await bookmarksResponse.json()
 
-    const bookmarkToDelete = bookmarksResponseJSON.data.find(
-      bookmark => bookmark.text === textField && bookmark.for === "Bookmark for Julia"
+    const bookmarkToDelete = bookmarksResponseJSON.data.find( // Zoek in lijst van bookmarks
+      bookmark => bookmark.text === textField && bookmark.for === "Bookmark for Julia" // of "text" = textField én "for" = "Bookmark for Julia"
     )
 
-    if (bookmarkToDelete) {
+    if (bookmarkToDelete) { // als bookmark gevonden is die aan conditions voldoet, dan delete
       await fetch(`${apiEndpoint}${apiMessagesEndpoint}/${bookmarkToDelete.id}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json;charset=UTF-8" }
       })
     }
-
-    await fetch(`${apiEndpoint}${apiMessagesEndpoint}`, {
-      method: "POST",
-      body: JSON.stringify({
-        text: textField,
-        for: forField
-      }),
-      headers: { "Content-Type": "application/json;charset=UTF-8" }
-    })
+  } else {
+      await fetch(`${apiEndpoint}${apiMessagesEndpoint}`, { // als method is geen DELETE
+        method: "POST", // dus POST method
+        body: JSON.stringify({
+          text: textField, // text = webinar ID van gepostte webinar
+          for: forField // Bookmark for Julia
+        }),
+        headers: { "Content-Type": "application/json;charset=UTF-8" }
+      })
   }
-  response.redirect(303, request.get("Referer") || "/bookmarks")
+  
+  response.redirect(303, request.get("Referer") || "/bookmarks") // Referer heeft URL van vorige pagina en gebruiker wordt geredirect naar deze pagina (default is ander /webinars)
 })
 
 app.set('port', process.env.PORT || 8000)
