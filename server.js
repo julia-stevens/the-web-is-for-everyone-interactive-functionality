@@ -9,7 +9,7 @@ const engine = new Liquid();
 app.engine('liquid', engine.express());
 app.set('views', './views')
 
-import methodOverride from "method-override" // Importeer de "method-override" module, die het mogelijk maakt om HTTP-methoden zoals PUT en DELETE te gebruiken
+import methodOverride from "method-override" // Importeer de "method-override" module, die het mogelijk maakt om HTTP-methoden te gebruiken
 app.use(methodOverride("_method"))
 
 // API response links

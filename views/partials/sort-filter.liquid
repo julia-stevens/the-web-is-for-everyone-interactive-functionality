@@ -33,18 +33,18 @@
             </label>
 
             {% for category in categories %}
-                {% assign words = category.name | split: " " %}
+                {% assign words = category.name | split: " " %} {% comment %} splits naam op spaties --> elk woord apart {% endcomment %}
                 {% assign new_name = "" %}
                 
                 {% for word in words %}
-                    {% assign capitalized_word = word | capitalize %}
+                    {% assign capitalized_word = word | capitalize %} {% comment %} eerste letter hoofdletter {% endcomment %}
                     {% if forloop.first %}
-                        {% assign new_name = capitalized_word %}
+                        {% assign new_name = capitalized_word %} {% comment %} als het het eerste woord is, zet als capitalized_word {% endcomment %}
                     {% else %}
-                        {% assign new_name = new_name | append: " " | append: capitalized_word %}
+                        {% assign new_name = new_name | append: " " | append: capitalized_word %} {% comment %} voeg de rest van de woorden toe, met spatie {% endcomment %}
                     {% endif %}
                 {% endfor %}
-            
+
                 <label>
                     <input type="radio" name="category" value="{{ category.name }}" {% if currentCategory == category.name %} checked {% endif %}>
                     <span>{{ new_name }}</span>
